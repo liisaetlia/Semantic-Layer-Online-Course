@@ -12,7 +12,13 @@ models:
         entity:
           type: primary
           name: customer_id
-
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
       ## dimensions
       - name: customer_name
         dimension:

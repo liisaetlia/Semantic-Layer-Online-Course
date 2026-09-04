@@ -8,27 +8,48 @@ models:
     columns: 
       ## entities
       - name: order_item_id
+        data_type: varchar(255)
+        constraints:
+          - type: not_null
         entity:
           type: primary
           name: order_item_id
+        data_tests:
+          - unique
+          - not_null
       - name: order_id
+        data_type: varchar(255)
         entity:
           type: foreign
           name: order_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_orders')
+                field: order_id
       - name: product_id
+        data_type: varchar(255)
         entity:
           type: foreign
           name: product_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_products')
+                field: product_id
 
       ## dimensions
       - name: ordered_at
+        data_type: timestamp
         dimension:
           type: time
         granularity: day
       - name: is_food_item
+        data_type: boolean
         dimension:
           type: categorical
       - name: is_drink_item
+        data_type: boolean
         dimension:
           type: categorical
           
@@ -59,4 +80,3 @@ metrics:
     input_metrics:
       - name: product_price
       - name: supply_cost
-

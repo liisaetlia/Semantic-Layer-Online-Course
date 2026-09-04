@@ -1,0 +1,10 @@
+groups:
+ - name: finance
+   owner: 
+     name: Firstname Lastname
+     email: finance@company.fi
+   description: "This group contains all the models related to finance, including orders and order items."
+ - name: product
+   owner:
+    name: Product team
+    email: product@company.fi 

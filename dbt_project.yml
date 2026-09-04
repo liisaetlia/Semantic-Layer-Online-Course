@@ -5,8 +5,11 @@ name: "jaffle_shop"
 version: "1.0.0"
 config-version: 2
 
+dbt-cloud:
+    project-id: 70506183162494
+
 # This setting configures which "profile" dbt uses for this project.
-profile: "snowflake"
+profile: "databricks"
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -33,9 +36,20 @@ vars:
 
 models:
   jaffle_shop:
+    +meta:
+      required_tests:
+        unique: 1
+        not_null: 1
+
     staging:
       +materialized: view
+
     marts:
+      +meta:
+        required_tests:
+          unique: 1
+          not_null: 1
+          relationships: 1
       +materialized: table
 flags:
   require_generic_test_arguments_property: true

@@ -1,5 +1,10 @@
 models:
   - name: fct_orders
+    config:
+      access: public
+      group: finance
+      contract:
+        enforced: true
     semantic_model:
       enabled: true
     agg_time_dimension: ordered_at
@@ -8,32 +13,53 @@ models:
     columns:
       ## entities
       - name: order_id
+        data_type: varchar(255)
+        constraints:
+          - type: not_null
         entity:
           type: primary
           name: order_id
+        data_tests:
+          - unique
+          - not_null
       - name: location_id
+        data_type: varchar(255)
         entity:
           type: foreign
           name: location_id
       - name: customer_id
+        data_type: varchar(255)
         entity:
           type: foreign
           name: customer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
 
       ## dimensions
       - name: ordered_at
+        data_type: timestamp
         dimension:
           type: time
         granularity: day
       - name: order_total ## this is a dimension because we intend to filter by it later
+        data_type: numeric(10, 2)
         dimension:
           type: categorical
       - name: is_food_order
+        data_type: boolean
         dimension:
           type: categorical
       - name: is_drink_order
+        data_type: boolean
         dimension:
           type: categorical
+      - name: order_cost
+        data_type: numeric(10, 2)
+      - name: tax_paid
+        data_type: numeric(10, 2)
 
     metrics: ## simple metrics
       - name: order_total
