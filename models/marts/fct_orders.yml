@@ -150,18 +150,24 @@ metrics: ## advanced metrics
     type: cumulative
     input_metric: order_total
     
-  - name: "cumulative_order_ammount_l1m"
-    label: "cumulative_order_ammount_l1m"    
-    description: "Trailing 1 month cumulative order amount"
-    type: cumulative
-    input_metric: order_total
-    window: 1 month
-  - name: "cumulative_order_amount_mtd"
-    label: "cumulative_order_amount_mtd"    
-    description: "The month to date value of all orders"
-    type: cumulative
-    input_metric: order_total
-    grain_to_date: month
+  #- name: cumulative_order_ammount_l1m
+  # label: cumulative_order_ammount_l1m
+  # description: Trailing 1 month cumulative order amount
+  #  type: cumulative
+  #  type_params:
+  #    measure:
+  #      name: order_total
+  #   cumulative_type_params:
+  #     window: 1 month
+  #- name: "cumulative_order_amount_mtd"
+  #  label: "cumulative_order_amount_mtd"    
+  #  description: "The month to date value of all orders"
+  #  type: cumulative
+  #  type_params:
+  #   measure:
+  #   name: order_total
+  #   cumulative_type_params:
+  #    grain_to_date: month
 saved_queries:
   - name: order_metrics
     description: testing out order metrics in one table 
